@@ -1,12 +1,12 @@
 const express = require("express");
-const helmet = require('helmet');
-const morgan = require('morgan');
-const cors = require('cors');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const middlewares = require('./middlewares');
-const reservations = require('./api/reservations');
+const middlewares = require("./middlewares");
+const reservations = require("./api/reservations");
 
 const app = express();
 
@@ -19,21 +19,22 @@ mongoose.connect(process.env.DATABASE_URL, {
   useUnifiedTopology: true,
 });
 
-
-app.use(morgan('common'));
+app.use(morgan("common"));
 app.use(helmet());
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: 'Hello world'
+    message: "Hello world",
   });
 });
 
-app.use('/api/reservations', reservations);
+app.use("/api/reservations", reservations);
 
 //if page 404
 app.use(middlewares.notFound);
