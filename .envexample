@@ -1,0 +1,5 @@
+NODE_ENV=development
+PORT=port
+DATABASE_URL=mongodb://localhost/mokkivaraus
+CORS_ORIGIN=http://localhost:3000
+MESSAGE="hello from env"
