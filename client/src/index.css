@@ -10,3 +10,18 @@ body {
 code {
   font-family: monospace, source-code-pro, Menlo, Monaco, Consolas, 'Courier New';
 }
+
+.fc .fc-col-header-cell-cushion { /* needs to be same precedence */
+  padding-top: 5px; /* an override! */
+  padding-bottom: 5px; /* an override! */
+}
+
+.fc .fc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.test {
+  width: 600px;
+}
