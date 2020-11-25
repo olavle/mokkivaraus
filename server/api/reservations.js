@@ -19,7 +19,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-//Get all etnries
+//Get all entries
 router.get("/", async (req, res, next) => {
   try {
     const entries = await ReservationEntry.find();
