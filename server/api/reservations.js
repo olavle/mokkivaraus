@@ -2,14 +2,47 @@ const { response } = require("express");
 const express = require("express");
 const ReservationEntry = require("../models/ReservationModel");
 const router = express.Router();
+const fetch = require("node-fetch");
 
 //Post new entry
 router.post("/", async (req, res, next) => {
   try {
+    let isReserved = false;
     const reservationEntry = new ReservationEntry(req.body);
-    const createdEntry = await reservationEntry.save();
-    res.json(createdEntry);
-    console.log(createdEntry);
+
+    const getAllReservations = await fetch('http://localhost:4000/api/reservations');
+    let ReservationsJson = await getAllReservations.json();
+    ReservationsJson.map(existing => {
+      if (existing.starting_date <= req.body.starting_date && existing.ending_date >= req.body.ending_date) {
+        isReserved = true;
+      } 
+    })
+    if (!isReserved) {
+      const createdEntry = await reservationEntry.save();
+      res.json(createdEntry);
+      console.log(createdEntry);
+    } else {
+      return(
+        res.json({
+          message: 'There already is a reservation for this date'
+        })
+      )
+    }    
+
+    // fetch('http://localhost:4000/api/reservations')
+    // .then(response => response.json())
+    // .then(data => data.map(e => {
+    //   if (e.starting_date === req.body.starting_date) {
+    //     res.json({
+    //       message: 'There already is a reservation for this date'
+    //     })
+    //   } else {
+    //     const createdEntry = await reservationEntry.save();
+    //     res.json(createdEntry);
+    //     console.log(createdEntry);
+    //   }
+    // }))
+    // .catch((error) => console.log(error));
   } catch (error) {
     console.log(error.name);
     if (error.name === "ValidationError") {
