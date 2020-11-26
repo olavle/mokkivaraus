@@ -12,7 +12,7 @@ router.post("/", async (req, res, next) => {
 
     const getAllReservations = await fetch('http://localhost:4000/api/reservations');
     let ReservationsJson = await getAllReservations.json();
-    ReservationsJson.map(existing => {
+    ReservationsJson.map(existing => {  //TODO fix this properly to have the date in range of the new date
       if (existing.starting_date <= req.body.starting_date && existing.ending_date >= req.body.ending_date) {
         isReserved = true;
       } 
