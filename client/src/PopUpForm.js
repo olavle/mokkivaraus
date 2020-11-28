@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function PopUpForm(props) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [reservation, setReservation] = useState({});
 
   const handleClickOpen = () => {
@@ -38,7 +38,9 @@ export default function PopUpForm(props) {
       };
       fetch('http://localhost:4000/api/reservations', requestOptions)
         .then(response => response.json())
-        .then(data => console.log('resdata is', data));
+        .then(data => {
+          console.log('resdata is', data);
+        });
       handleClose();
   }
 
