@@ -18,7 +18,6 @@ const App = () => {
   // ]);
 
   const [removed, setRemoved] = useState('');
-  const [recentlymade, setRecentlymade] = useState('');
 
   async function getData() {
     const url = 'http://localhost:4000/api/reservations';
